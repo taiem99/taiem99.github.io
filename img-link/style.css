@@ -1,0 +1,23 @@
+
+    .contents {
+        width: 960px;
+        margin: 0px auto;
+    }
+img {
+    width: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50px;
+    height: 40px;
+    font-weight: bold;
+}
+p {
+    text-align: justify;
+}
