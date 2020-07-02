@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+</head>
+<body>
+    <canvas id="canvas" style="border: 1px solid black" ></canvas>
+    <script>
+        var canvas = document.getElementById('canvas')
+        canvas.width = 1000
+        canvas.height = 1000
+        var ctx = canvas.getContext('2d')
+        class Rect {
+            constructor(dx,dy,width,height,color){
+                this.dx = dx
+                this.dy = dy
+                this.width = width
+                this.height = height
+                this.color = color
+            }
+            draw () {   
+                ctx.beginPath()
+                ctx.fillStyle = this.color
+                ctx.strokeStyle = this.color
+                ctx.rect(this.dx,this.dy,this.width,this.height)
+                ctx.fill()
+                ctx.stroke()
+            }
+        }
+        var point_A = new Rect(0,0,200,250,'red')
+        point_A.draw()
+        var point_B = new Rect(500,0,500,400,'blue')
+        point_B.draw()
+        var point_C = new Rect(0,700,450,300,'yellow')
+        point_C.draw()
+        var point_D = new Rect(645,455,355,545,'pink')
+        point_D.draw()
+    </script>
+</body>
+</html>
