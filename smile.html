@@ -14,35 +14,26 @@
         canvas.style.border = "1px solid pink"
         var ctx = canvas.getContext('2d')
         class Arc {
-            constructor(dx,dy,radius) {
+            constructor(dx,dy,radius,endAngle) {
                 this.dx = dx
                 this.dy = dy
                 this.radius = radius
+                this.endAngle = endAngle
             }
             draw(){
                 ctx.beginPath()
-                ctx.arc(this.dx,this.dy,this.radius,0,2*Math.PI,false)
+                ctx.arc(this.dx,this.dy,this.radius,0,this.endAngle*Math.PI,false)
                 ctx.stroke()
             }
-        } class Arcs {
-            constructor(dx,dy,radius) {
-                this.dx = dx
-                this.dy = dy
-                this.radius = radius
-            }
-            draw(){
-                ctx.beginPath()
-                ctx.arc(this.dx,this.dy,this.radius,0,1*Math.PI,false)
-                ctx.stroke()
-            }
-        }
-        var point_A = new Arc(400,400,300)
+        } 
+        
+        var point_A = new Arc(400,400,300,2)
         point_A.draw()
-        var point_B = new Arcs(400,400,250)
+        var point_B = new Arc(400,400,250,1)
         point_B.draw()
-        var point_C = new Arc(300,300,50,)
+        var point_C = new Arc(300,300,50,2)
         point_C.draw()
-        var point_D = new Arc(500,300,50)
+        var point_D = new Arc(500,300,50,2)
         point_D.draw()
     </script>
 </body>
