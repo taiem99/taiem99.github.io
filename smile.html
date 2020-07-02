@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smile by arc</title>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        var canvas = document.getElementById('canvas')
+        canvas.width = 800
+        canvas.height = 800
+        canvas.style.border = "1px solid pink"
+        var ctx = canvas.getContext('2d')
+        class Arc {
+            constructor(dx,dy,radius) {
+                this.dx = dx
+                this.dy = dy
+                this.radius = radius
+            }
+            draw(){
+                ctx.beginPath()
+                ctx.arc(this.dx,this.dy,this.radius,0,2*Math.PI,false)
+                ctx.stroke()
+            }
+        } class Arcs {
+            constructor(dx,dy,radius) {
+                this.dx = dx
+                this.dy = dy
+                this.radius = radius
+            }
+            draw(){
+                ctx.beginPath()
+                ctx.arc(this.dx,this.dy,this.radius,0,1*Math.PI,false)
+                ctx.stroke()
+            }
+        }
+        var point_A = new Arc(400,400,300)
+        point_A.draw()
+        var point_B = new Arcs(400,400,250)
+        point_B.draw()
+        var point_C = new Arc(300,300,50,)
+        point_C.draw()
+        var point_D = new Arc(500,300,50)
+        point_D.draw()
+    </script>
+</body>
+</html>
