@@ -1,0 +1,115 @@
+*{
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+body{
+    font-family: Helvetica,Arial,sans-serif;
+    font-weight: 300;
+    width: 100%;
+    color: #333;
+    line-height: 1.254;
+    margin: 0;
+    padding: 0;
+    background: #f1f1f1;
+}
+#page{
+    text-align: justify;
+    width: 1024px;
+    margin: 0 auto;
+    padding: 1em 8em;
+    background: #f5f6fa;
+    
+}
+#page h1{
+    color: #2890c7;
+    text-align: center;
+    font-weight: bolder;
+}
+#page h3{
+    color: #FF0000;
+}
+.image{
+    width: 100%;
+    text-align: center;
+}
+.image img{
+    margin: 0;
+    padding: 20px;
+    max-width: 80% !important;
+    height: auto !important;
+}
+
+
+#container {
+    margin: 0;
+    width: 100%;
+    display: block;
+    padding: 0 100px;
+    
+   
+}
+#container h1{
+
+    color: #2890c7;
+    text-align: center;
+    margin: 20px 0;
+}
+#content {
+    width: 100%;
+    float: left;
+    background: #f5f6fa;
+    
+
+}
+.items{
+    width: 33.333333%;
+    padding: 10px;
+    float: left;
+}
+.items a{
+    text-decoration: none;
+    overflow: hidden;
+    text-transform: uppercase;
+    font-weight: 500;
+    
+}
+.items a img{
+    width: 100%;
+    transition: all 1s;
+    border: 1px solid white;
+}
+.items a p:hover{
+    color:green;
+}   
+.items a img:hover{
+    transform: rotate(-5deg) scale(1.2);
+    
+}
+.items a:link{
+    color: black;
+}
+.items a:visited{
+    color:black;
+
+}
+#button button{
+    width:50px;
+    height: 50px;
+    background: pink;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+#button button a{
+    text-decoration: none;
+    color: white;
+}
+#button button:hover{
+    background: red;
+    border-radius: 50%;
+    color: indigo;
+}
