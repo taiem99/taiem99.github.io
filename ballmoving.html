@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ball Moving</title> 
+    <style>
+      #canvas {
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          margin: auto;
+      }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        var canvas = document.getElementById('canvas')
+        var ctx = canvas.getContext('2d')
+        canvas.width = innerWidth
+        canvas.height = innerHeight
+        addEventListener("resize",function(){
+            canvas.width = innerWidth
+            canvas.height = innerHeight
+        })
+
+        var frictionForce = 0.98
+        class Ball{
+            constructor(x,y,radius,color){
+                this.x = x
+                this.y = y
+                this.dx = 0 //van toc cua ball theo truc x
+                this.radius = radius
+                this.color = color
+            }
+            draw(){
+                ctx.beginPath()
+                ctx.arc(this.x,this.y,this.radius,0,Math.PI*2,false)
+                ctx.fillStyle = this.color
+                ctx.fill()
+                ctx.closePath()
+            }
+            move(){
+                if ((this.x > canvas.width - this.radius - 1) || (this.x + this.dx <= this.radius)){
+                    this.dx = -this.dx
+                    if (Math.abs(this.dx) < 0.5){
+                        this.dx = 0
+                    }
+                }
+                this.x = this.x + this.dx
+                this.dx = this.dx * frictionForce
+                this.draw()
+            }
+        }
+
+        var ballColor = new Ball(50,100,50,'black')
+        ballColor.draw()
+
+        addEventListener('keydown',function(event){
+        if(event.keyCode == 37){
+            console.log("left")
+            ballColor.dx += -5
+        }else if(event.keyCode == 39){
+            console.log("right")
+            ballColor.dx += 5
+        }
+        })
+
+        function animate(){
+            requestAnimationFrame(animate)
+            ctx.clearRect(0,0,canvas.width,canvas.height)
+            ballColor.move()
+        }
+        animate()
+
+
+
+
+
+    </script>
+</body>
+</html>
