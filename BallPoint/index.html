@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BÓNG BAY</title>
+</head>
+<style>
+    body{
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        width: 100vw;
+        height: 100vh;
+    }
+    .game{
+        width: 100%;
+        height: 100%;
+        background: #130f40;
+        overflow: hidden;
+    }
+    #start{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: url(img.jpg);
+    }
+    #btn_start{
+        width: 200px;
+        height: 200px;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        text-transform: uppercase;
+        font-size: 30px;
+        background: #f9ca24;
+        color: white;
+        border-radius: 100px;
+        transition: all 1s;
+    }
+    #btn_start:hover{
+        background: #eb4d4b;
+        color: #7ed6df;
+        
+    }
+    #play, #victory, #exit{
+        display: none;
+    }
+   
+    #exit{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        display: none;
+    }
+    #btn_again, #btn_exit{
+        width: 200px;
+        height: 200px;
+        padding: 0;
+        margin: 0;
+        border: 0;
+        text-transform: uppercase;
+        font-size: 30px;
+        background: #f9ca24;
+        color: white;
+        border-radius: 100px;
+        transition: all 1s;
+    }
+    #btn_exit:hover{
+        background: #eb4d4b;
+        
+    }
+    #btn_again:hover{
+        background: #eb4d4b;
+        
+    }
+    
+</style>
+<body>
+    <div class="game" id="start">
+        <button id="btn_start">Bắt đầu</button>
+    </div>
+    <div class="game" id="play">
+        <canvas id="canvas"></canvas>
+    </div>
+    
+    <div class="game" id="exit">
+        <button id="btn_again">Chơi lại</button>
+        <button id="btn_exit">Thoát</button>
+    </div>
+    <script>
+        let start = document.getElementById("start")
+        let play = document.getElementById("play")
+
+        let exit = document.getElementById("exit")
+        let btn_start = document.getElementById("btn_start")
+        let btn_again = document.getElementById("btn_again")
+        let btn_exit = document.getElementById("btn_exit")
+
+        btn_start.addEventListener("click",function(){
+            start.style.display = "none"
+            play.style.display = "block"
+        })
+        btn_exit.addEventListener("click", function(){
+            window.location.reload()
+        })
+        
+        btn_again.addEventListener("click", function(){
+            exit.style.display = "none"
+            play.style.display = "block"
+            resetGame()
+
+        })
+      
+        let canvas = document.getElementById("canvas")
+        let ctx = canvas.getContext("2d")
+
+        canvas.width = innerWidth
+        canvas.height = innerHeight
+        addEventListener("resize", function(){
+            canvas.width = innerWidth
+            canvas.height = innerHeight
+        })
+        // Tùy chỉnh kích thước canvas theo kích thước trình duyệt
+
+        function randomNumber(min, max){
+            return Math.floor(Math.random() * (max - min +1) + min)
+        }
+        // random một số ngẫu nhiên trong khoảng min -- max
+
+        function randomColor(){
+            let r = randomNumber(0, 255)
+            let b = randomNumber(0, 255)
+            let g = randomNumber(0, 255)
+            return `rgb(${r},${g},${g})`
+        }
+
+        class Ball{
+            constructor(x, y, radius, color){
+                this.x = x
+                this.y = y
+                this.radius = radius
+                this.color = color
+                this.dx = 0
+                this.dy = 0
+                this.score = 0
+            }
+
+            drawBall(){
+                ctx.beginPath()
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, false)
+                ctx.fillStyle = this.color
+                ctx.shadowColor = "white"
+                ctx.shadowBlur = 10
+                ctx.fill()
+                ctx.closePath()
+            }
+            // vẽ hình tròn có bóng trắng bao quanh
+
+            drawMainBall(){
+                ctx.beginPath()
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, false)
+                ctx.fillStyle = this.color
+                ctx.shadowColor = "white"
+                ctx.shadowBlur = 10
+                ctx.fill()
+                ctx.closePath()
+
+                ctx.beginPath()
+                ctx.font = "20px Arial"
+                ctx.fillStyle = "#ecf0f1"
+                ctx.textAlign = "center"
+                ctx.fillText("BOSS", this.x, this.y + 5)
+                ctx.closePath()
+            }
+            // vẽ hình tròn có chữ BOSS ở giữa, có bóng trắng bao quanh
+
+            move(){
+                this.x = this.x + this.dx
+                this.y = this.y + this.dy
+                if((this.x > canvas.width - this.radius -1) || (this.x + this.dx <= this.radius)){
+                    this.dx = -this.dx
+                }
+                if((this.y > canvas.height - this.radius -1) || (this.y + this.dy <= this.radius)){
+                    this.dy = -this.dy
+                }
+            }
+            // hàm di chuyển của bóng
+            // nếu bóng chạm vào các cạnh của canvas thì bóng sẽ di chuyển ngược lại
+
+            drawScore(){
+                ctx.beginPath()
+                ctx.fillStyle = "white"
+                ctx.font = "100px Arial"
+                ctx.fillText(this.score, 100, canvas.height - 50)
+                ctx.closePath()
+            }
+            // In điểm số ra góc màn hình
+
+            touch(object){
+                let range = Math.sqrt((this.x - object.x) * (this.x - object.x) + (this.y - object.y) * ( this.y - object.y))
+                if(range < this.radius + object.radius){
+                    this.x = -200
+                    this.y = -200
+                    object.score += 1
+                    if(object.score % 5 == 0){
+                        object.radius += 3
+                    }
+                    new Audio('http://dight310.byu.edu/media/audio/FreeLoops.com/5/5/Mouse%20Click%20Fast.wav-23232-Free-Loops.com.mp3').play();
+                    if(object.score == 40){
+                        play.style.display = "none"
+                        exit.style.display = "flex  "
+                    }
+                    
+                }
+            }
+            // hàm tính va chạm giữa 2 quả bóng, khi va chạm sẽ có tiếng kêu
+            // khi 2 quả bóng va chạm sẽ tính điểm và cứ khi quả bóng được 5 điểm sẽ tăng kích thước bóng thêm 3 đơn vị
+        }
+        // khai báo class Ball
+
+        let balls = []
+        for(let i = 0; i <  40; i++){
+            balls.push(new Ball(randomNumber(20, canvas.width - 20), randomNumber(20, canvas.height - 20), 20, randomColor()))
+        }
+        // khai báo 1 mảng balls gồm 40 quả bóng màu đỏ có kích thước radius = 20, có tọa độ ngẫu nhiên
+
+        let ballBoss = new Ball(40, 40, 40, "#e67e22")
+
+        // khai báo 1 quả bóng màu cam có kích thước radius = 40, có chữ BOSS bên trong
+
+        addEventListener("keydown", function(event){
+            if(event.keyCode == 37){
+                ballBoss.dx = -5
+                ballBoss.dy = 0
+            }
+            if(event.keyCode == 39){
+                ballBoss.dx = 5
+                ballBoss.dy = 0
+            }
+            if(event.keyCode == 38){
+                ballBoss.dx = 0
+                ballBoss.dy = -5
+            }
+            if(event.keyCode == 40){
+                ballBoss.dx = 0
+                ballBoss.dy = 5
+            }
+        })
+        // quả bóng to, màu cam di chuyển khi ấn nút trên, dưới, trái, phải
+        function resetGame(){
+            ballBoss.x = 40
+            ballBoss.y = 40
+            ballBoss.radius = 40
+            ballBoss.dx = 0
+            ballBoss.dy = 0
+            ballBoss.score = 0
+            for(let i = 0; i < balls.length; i++){
+                balls[i].x = randomNumber(20, canvas.width - 20)
+                balls[i].y = randomNumber(20, canvas.height - 20)
+            }
+
+        }
+        function animate(){
+            requestAnimationFrame(animate)
+            ctx.clearRect(0, 0 , canvas.width, canvas.height)
+            for(let i = 0; i < balls.length; i++){
+                balls[i].drawBall()
+                balls[i].touch(ballBoss)
+            }
+            // vẽ các quả bóng nhỏ màu đỏ
+            ballBoss.drawMainBall()
+            ballBoss.drawScore()
+            ballBoss.move()
+        }
+        animate()
+    </script>
+</body>
+</html>
