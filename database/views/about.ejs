@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <style>
+        html, body{
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+        #content{
+            width: 1250px;
+            margin: 0 auto;
+            background: #F4F7FA;
+            padding:  48px 15px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        #form_add{
+            width: 1250px;
+            margin: 0 auto;
+            padding: 50px 10px;
+        }
+        
+        .content-item{
+            width: 25%;
+            background: #FFFFFF;
+            box-shadow: 5px #f1f1f1;
+            margin: 10px;
+            border-radius: 10px;
+        }
+        .img_item{
+            width: 100%;
+        }
+        h2{
+            font-size: 20px;
+            text-align: center;
+        }
+        .time{
+            border-top: 1px solid #eaeaea;
+            padding: 12px 20px;
+            height: 20px;
+        }
+        .time span{
+            display: block;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div id="form_add">
+        <form action="/new-todos" method="POST">
+            <p>Tiêu đề</p>
+            <input type="text" name="title"> 
+            <p>Hình ảnh</p>
+            <input type="text" name="image">
+            <p>Thời gian</p>
+            <input type="text" name="date">
+            <button type="submit">Add blog</button>
+        </form>
+    </div>
+
+    <div id="content">
+        <% for(let i = 0; i < result.length; i++){ %>
+            <div class="content-item">
+                
+                <img class="img_item" src="<%= result[i].image %>" >
+                <h2> <%= result[i].title %> </h2>  
+                <div class="time">
+                    <span><%= result[i].date %></span>
+                </div>
+                 
+            </div>
+            
+                
+        
+        <% } %>
+    </div>
+</body>
+</html>
