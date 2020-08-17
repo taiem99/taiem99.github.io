@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update blog</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div id="update_blog">
+        <form method="POST" action="/update_blog">
+            <input type="hidden" id="blogId" name="blogId" value="<%= blog._id %>">
+            <input type="text" id="blogTitle" name="blogTitle" value="<%= blog.title %>">
+            <input type="text" id="blogImg" name="blogImg" value="<%= blog.image %>">
+            <button type="submit" class="btn_update">Update</button>
+        </form>
+        <form action="/delete_blog" method="POST"> 
+            <input type="hidden" id="blogId" name="blogId" value="<%= blog._id %>">
+            <button type="submit" class="btn_update">Delete</button>
+        </form>
+    </div>
+</body>
+</html>
