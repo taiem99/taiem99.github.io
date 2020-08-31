@@ -1,0 +1,75 @@
+// bài 1: Lấy thông tin Name và LastName của tất cả nhân viên
+SELECT Name, LastName
+FROM Employees
+
+// bài 2: Lấy thông tin Name, LastName và Department của tất cả nhân viên
+
+SELECT Name, LastName, Department
+FROM Employees
+
+// bài 3:  Lấy tất cả thông tin của các nhân viên có last name là "Smith".
+
+
+SELECT SSN, Name, LastName, Department 
+FROM Employees 
+WHERE LastName = "Smith"
+
+// Bài 4: Lấy tất cả thông tin của các nhân viên có last name là "Smith" hoặc "Doe".
+
+
+SELECT SSN, Name, LastName, Department 
+FROM Employees 
+WHERE LastName IN("Smith", "Doe")
+
+// Bài 5: Lấy tất cả thông tin của các nhân viên làm việc ở phòng số 14, 37 hoặc 77.
+
+SELECT SSN, Name, LastName, Department 
+FROM Employees 
+WHERE Department IN(14, 37, 77)
+ 
+// bài 6: Lấy tất cả thông tin của các nhân viên có last name bắt đầu bằng chữ cái "S" hoặc "D".
+
+SELECT SSN, Name, LastName, Department 
+FROM Employees 
+WHERE LastName LIKE "S%" OR LastName LIKE "D%"
+
+//Bài 7 : Lấy tất cả thông tin của các nhân viên có last name kết thúc bằng chữ "th" hoặc "on", đồng thời 
+có name chứa chữ cái 'a'.
+
+SELECT SSN, Name, LastName, Department 
+FROM Employees 
+WHERE LastName LIKE("%th") OR LastName LIKE("%on") AND Name LIKE("%a%")
+
+
+//Bài 8: Tính tổng ngân quỹ cho tất cả các phòng ban
+
+SELECT SUM(Budget) AS total_budget
+FROM Departments
+
+// Bài 9: Tính trung bình ngân quỹ cho tất cả các phòng ban
+
+SELECT AVG(Budget) AS AVG_budget
+FROM Departments
+
+//Bài 10: Tính số lượng nhân viên theo từng mã phòng ban
+
+SELECT Department, COUNT(SSN) AS total_employ
+FROM Employees
+GROUP BY Department
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
