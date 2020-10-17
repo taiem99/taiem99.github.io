@@ -46,7 +46,7 @@ public class Loan {
         System.out.println("Nhập số tiền bạn muốn vay: ");
         money = sc.nextDouble();
         System.out.println("Thời gian vay (tháng): ");
-        months = Integer.parseInt(sc.nextLine());
+        months = sc.nextInt();
         createdAt = new Date();
         yearInterest = 10;
     }

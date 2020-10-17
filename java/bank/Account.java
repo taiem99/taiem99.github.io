@@ -124,7 +124,7 @@ public class Account {
         loan.input();
         loanList.add(loan);
         money += loan.getMoney();
-        System.out.println("Bạn đã vay " + loan.getMoney() + " lãi suất " + loan.getYearInterest());
+        System.out.println("Bạn đã vay " + loan.getMoneyString() + " lãi suất " + loan.getYearInterest());
     }
 
     //method rút tiền và lưu vào lịch sử rút tiền của tài khoản
